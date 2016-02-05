@@ -1,0 +1,41 @@
+[1mdiff --git a/lib/SlackBot.js b/lib/SlackBot.js[m
+[1mindex 81c5a8f..ef2152e 100755[m
+[1m--- a/lib/SlackBot.js[m
+[1m+++ b/lib/SlackBot.js[m
+[36m@@ -19,6 +19,7 @@[m [mfunction Slackbot(configuration) {[m
+     slack_botkit.configureSlackApp = function(slack_app_config, cb) {[m
+ [m
+         slack_botkit.log('** Configuring app as a Slack App!');[m
+[32m+[m[32m        slack_botkit.log("HERE IS THE APP: " + JSON.stringify(slack_app_config));[m
+         if (!slack_app_config || !slack_app_config.clientId ||[m
+             !slack_app_config.clientSecret || !slack_app_config.scopes) {[m
+             throw new Error('Missing oauth config details', bot);[m
+[36m@@ -328,6 +329,7 @@[m [mfunction Slackbot(configuration) {[m
+                                         createdBy: identity.user_id,[m
+                                         url: identity.url,[m
+                                         name: identity.team,[m
+[32m+[m[32m                                        appId: slack_botkit.config.appId[m
+                                     };[m
+                                 }[m
+ [m
+[36m@@ -352,7 +354,7 @@[m [mfunction Slackbot(configuration) {[m
+                                     bot.configureRTM(team.bot);[m
+                                     slack_botkit.trigger('create_bot', [bot, team.bot]);[m
+                                 }[m
+[31m-[m
+[32m+[m[41m                                [m
+                                 slack_botkit.saveTeam(team, function(err, id) {[m
+                                     if (err) {[m
+                                         slack_botkit.log.error('An error occurred while saving a team: ', err);[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex 78d8d3a..d00ccd5 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -5,6 +5,7 @@[m
+   "main": "lib/Botkit.js",[m
+   "dependencies": {[m
+     "body-parser": "^1.14.2",[m
+[32m+[m[32m    "botkit-storage-mongo": "^1.0.2",[m
+     "express": "^4.13.3",[m
+     "jfs": "^0.2.6",[m
+     "mustache": "^2.2.1",[m
